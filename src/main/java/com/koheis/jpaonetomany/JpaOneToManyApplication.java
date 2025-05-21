@@ -30,9 +30,26 @@ public class JpaOneToManyApplication {
 			// createInstructorWithCourses(appDAO);
 			// findInstructorWithCourses(appDAO);
 			// findCousesForInstructor(appDAO);
+			// findInstructorWithCoursesJoinFetch(appDAO);
 
-			findInstructorWithCoursesJoinFetch(appDAO);
+			updateInstructor(appDAO);
 		};
+	}
+
+	private void updateInstructor(AppDAO appDAO) {
+
+		int theId = 2;
+
+		// find the instructor
+		System.out.println("Finding instructor id: " + theId);
+		Instructor tempInstructor = appDAO.findInstructorByIdJoinFetch(theId);
+
+		// update the instructor
+		System.out.println("Updating instructor id: " + theId);
+		tempInstructor.setLastName("TESTER");
+
+		appDAO.update(tempInstructor);
+		System.out.println("Done!");
 	}
 
 	private void findInstructorWithCoursesJoinFetch(AppDAO appDAO) {
