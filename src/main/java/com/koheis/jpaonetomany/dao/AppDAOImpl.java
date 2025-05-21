@@ -1,11 +1,15 @@
 package com.koheis.jpaonetomany.dao;
 
+import com.koheis.jpaonetomany.entity.Course;
 import com.koheis.jpaonetomany.entity.Instructor;
 import com.koheis.jpaonetomany.entity.InstructorDetail;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class AppDAOImpl implements AppDAO{
@@ -59,6 +63,20 @@ public class AppDAOImpl implements AppDAO{
         tempInstructorDetail.getInstructor().setInstructorDetail(null);
 
         entityManager.remove(tempInstructorDetail);
+    }
+
+    @Override
+    public List<Course> findCoursesByInstructorId(int theId) {
+
+        // create query
+        TypedQuery<Course> query = entityManager.createQuery(
+                "from Course where instructor.id = :data", Course.class);
+        query.setParameter("data", theId);
+
+        // execute query and get result list
+        List<Course> courses = query.getResultList();
+
+        return courses;
     }
 
 }
