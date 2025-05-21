@@ -42,6 +42,14 @@ public class AppDAOImpl implements AppDAO{
         // retrieve the instructor
         Instructor tempInstructor = findInstructorById(theId);
 
+        // get the couses
+        List<Course> courses = tempInstructor.getCourses();
+
+        // break association of all courses for the instructor
+        for (Course course : courses) {
+            course.setInstructor(null);
+        }
+
         // delete the instructor
         entityManager.remove(tempInstructor);
     }

@@ -32,8 +32,9 @@ public class JpaOneToManyApplication {
 			// findCousesForInstructor(appDAO);
 			// findInstructorWithCoursesJoinFetch(appDAO);
 			// updateInstructor(appDAO);
+			// updateCourse(appDAO);
 
-			updateCourse(appDAO);
+			deleteInstructor(appDAO);
 		};
 	}
 
@@ -155,7 +156,7 @@ public class JpaOneToManyApplication {
 	}
 
 	private void deleteInstructor(AppDAO appDAO) {
-		int theId = 1;
+		int theId = 2;
 		System.out.println("Deleting instructor id: " + theId);
 		appDAO.deleteInstructorById(theId);
 
