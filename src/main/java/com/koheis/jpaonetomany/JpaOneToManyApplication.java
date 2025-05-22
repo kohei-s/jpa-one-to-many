@@ -4,6 +4,7 @@ import com.koheis.jpaonetomany.dao.AppDAO;
 import com.koheis.jpaonetomany.entity.Course;
 import com.koheis.jpaonetomany.entity.Instructor;
 import com.koheis.jpaonetomany.entity.InstructorDetail;
+import com.koheis.jpaonetomany.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,8 +23,50 @@ public class JpaOneToManyApplication {
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 
 		return runner -> {
+			// createCourseAndReviews(appDAO);
+			// retrieveCourseAndReviews(appDAO);
 
+			deleteCourseAndReviews(appDAO);
 		};
+	}
+
+	private void deleteCourseAndReviews(AppDAO appDAO) {
+
+		int theId = 10;
+		System.out.println("Deleting course id: " + theId);
+		appDAO.deleteCourseById(theId);
+		System.out.println("Done!");
+	}
+
+	private void retrieveCourseAndReviews(AppDAO appDAO) {
+		// get the course and reviews
+		int theId = 10;
+		Course tempCourse = appDAO.findCourseAndReviewsByCourseId(theId);
+
+		// print the course
+		System.out.println(tempCourse);
+
+		// print the reviews
+		System.out.println(tempCourse.getReviews());
+		System.out.println("Done!");
+	}
+
+	private void createCourseAndReviews(AppDAO appDAO) {
+
+		// create a course
+		Course tempCourse = new Course("Pacman - How to Score One Million Points");
+
+		// add some reviews
+		tempCourse.addReview(new Review("Great course!!"));
+		tempCourse.addReview(new Review("Cool course, job well done."));
+		tempCourse.addReview(new Review("What a dumb course!"));
+
+		// save the course ... and leverage the cascade all
+		System.out.println("Saving the course: " + tempCourse);
+		System.out.println("The reviews: " + tempCourse.getReviews());
+
+		appDAO.save(tempCourse);
+		System.out.printf("Done!");
 	}
 
 	private void deleteCourse(AppDAO appDAO) {

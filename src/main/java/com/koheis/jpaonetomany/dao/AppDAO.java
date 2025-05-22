@@ -7,6 +7,7 @@ import com.koheis.jpaonetomany.entity.InstructorDetail;
 import java.util.List;
 
 public interface AppDAO {
+
     void save(Instructor theInstructor);
     Instructor findInstructorById(int theId);
     void deleteInstructorById(int theId);
@@ -25,5 +26,9 @@ public interface AppDAO {
     Course findCourseById(int theId);
 
     void deleteCourseById(int theId);
+
+    void save(Course theCourse);
+
+    Course findCourseAndReviewsByCourseId(int theId);
 
 }
